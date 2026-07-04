@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI & Automation ROI Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#07111f,#0d1625,#121212);
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+    max-width:720px;
+    background:rgba(20,25,35,.96);
+    border:1px solid rgba(80,160,255,.25);
+    border-radius:22px;
+    padding:40px;
+    box-shadow:0 20px 50px rgba(0,0,0,.55);
+}
+
+h1{
+    text-align:center;
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#9fb4d0;
+    margin-bottom:35px;
+    line-height:1.5;
+}
+
+.input-group{
+    margin-bottom:22px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#d8e6ff;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #334155;
+    background:#111827;
+    color:white;
+    font-size:16px;
+    outline:none;
+    transition:.25s;
+}
+
+input:focus{
+    border-color:#2d8cff;
+    box-shadow:0 0 0 4px rgba(45,140,255,.18);
+}
+
+.results{
+    margin-top:35px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:#0d1725;
+    border:1px solid rgba(45,140,255,.25);
+    border-radius:16px;
+    padding:22px;
+}
+
+.card h3{
+    color:#8fb7ff;
+    font-size:1rem;
+    margin-bottom:10px;
+}
+
+.loss{
+    font-size:2rem;
+    font-weight:700;
+    color:#ff3b4d;
+}
+
+.note{
+    margin-top:30px;
+    text-align:center;
+    color:#95a6bf;
+    line-height:1.6;
+}
+
+.button{
+    display:block;
+    margin-top:35px;
+    text-align:center;
+    text-decoration:none;
+    background:linear-gradient(90deg,#1b7cff,#45a3ff);
+    color:white;
+    padding:18px;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(45,140,255,.35);
+}
+
+.footer{
+    margin-top:18px;
+    text-align:center;
+    font-size:.9rem;
+    color:#6f829e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI & Automation ROI Calculator</h1>
+
+<p class="subtitle">
+Discover how much repetitive manual work is costing your business.
+</p>
+
+<div class="input-group">
+<label>Number of employees doing manual tasks</label>
+<input id="employees" type="number" min="0" value="10">
+</div>
+
+<div class="input-group">
+<label>Hours wasted per employee daily</label>
+<input id="hours" type="number" min="0" step="0.1" value="2">
+</div>
+
+<div class="input-group">
+<label>Average hourly wage ($)</label>
+<input id="wage" type="number" min="0" step="0.01" value="25">
+</div>
+
+<div class="results">
+<div class="card">
+<h3>Monthly Loss</h3>
+<div class="loss" id="monthly">$0</div>
+</div>
+
+<div class="card">
+<h3>Yearly Loss</h3>
+<div class="loss" id="yearly">$0</div>
+</div>
+</div>
+
+<p class="note">
+These estimates assume approximately <strong>20 working days per month.</strong>
+</p>
+
+<a class="button"
+   href="https://www.linkedin.com/in/vasilije-dmitrovic-ba67b241b"
+   target="_blank"
+   rel="noopener noreferrer">
+Stop losses with Vexilio AI
+</a>
+
+<div class="footer">
+Instant estimates • No data leaves your browser
+</div>
+
+</div>
+
+<script>
+const employees = document.getElementById("employees");
+const hours = document.getElementById("hours");
+const wage = document.getElementById("wage");
+
+const monthlyEl = document.getElementById("monthly");
+const yearlyEl = document.getElementById("yearly");
+
+function formatMoney(value){
+    return "$" + value.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
+}
+
+function calculate(){
+    const e = Number(employees.value) || 0;
+    const h = Number(hours.value) || 0;
+    const w = Number(wage.value) || 0;
+
+    const monthly = e * h * w * 20;
+    const yearly = monthly * 12;
+
+    monthlyEl.textContent = formatMoney(monthly);
+    yearlyEl.textContent = formatMoney(yearly);
+}
+
+employees.addEventListener("input", calculate);
+hours.addEventListener("input", calculate);
+wage.addEventListener("input", calculate);
+
+calculate();
+</script>
+
+</body>
+  </html>
